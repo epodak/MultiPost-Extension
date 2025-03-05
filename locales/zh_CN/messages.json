@@ -621,6 +621,10 @@
   "platformV2ex": {
     "message": "V2EX"
   },
+  "platformTaobao": {
+    "message": "淘宝",
+    "description": "淘宝平台名称"
+  },
   "settingsTrustedDomainsOrigin": {
     "message": "来源域名"
   },

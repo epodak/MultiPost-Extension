@@ -623,6 +623,10 @@
   "platformV2ex": {
     "message": "V2EX"
   },
+  "platformTaobao": {
+    "message": "Taobao",
+    "description": "Platform name for Taobao"
+  },
   "settingsTrustedDomainsOrigin": {
     "message": "Origin Domain"
   },

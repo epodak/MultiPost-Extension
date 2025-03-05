@@ -18,6 +18,7 @@ import { DynamicWeiXinChannel } from './dynamic/weixinchannel';
 import { DynamicX } from './dynamic/x';
 import { DynamicXueqiu } from './dynamic/xueqiu';
 import { DynamicZhihu } from './dynamic/zhihu';
+import { DynamicTaobao } from './dynamic/taobao';
 
 export const DynamicInfoMap: Record<string, PlatformInfo> = {
   DYNAMIC_X: {
@@ -196,5 +197,15 @@ export const DynamicInfoMap: Record<string, PlatformInfo> = {
     platformName: chrome.i18n.getMessage('platformV2ex'),
     injectUrl: 'https://www.v2ex.com/write',
     injectFunction: DynamicV2EX,
+  },
+  DYNAMIC_TAOBAO: {
+    type: 'DYNAMIC',
+    name: 'DYNAMIC_TAOBAO',
+    homeUrl: 'https://item.publish.taobao.com/',
+    faviconUrl: 'https://www.taobao.com/favicon.ico',
+    iconifyIcon: 'simple-icons:taobao',
+    platformName: chrome.i18n.getMessage('platformTaobao'),
+    injectUrl: 'https://item.publish.taobao.com/taobao/manager/render.htm',
+    injectFunction: DynamicTaobao,
   },
 };
