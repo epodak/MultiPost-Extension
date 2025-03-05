@@ -1,4 +1,4 @@
-import { ArticleData } from './default';
+import type { ArticleData } from './default';
 import { preprocessor } from './preprocessor';
 
 export default async function scrapeZhihuContent(): Promise<ArticleData | undefined> {
@@ -6,9 +6,9 @@ export default async function scrapeZhihuContent(): Promise<ArticleData | undefi
 
   const cover = document.querySelector('meta[property="og:image"]')?.getAttribute('content') || '';
   const title = document.querySelector('meta[property="og:title"]')?.getAttribute('content') || '';
-  
+
   console.debug('title ', title);
-  
+
   const author = document.querySelector('span.AuthorInfo-name')?.textContent || '';
   const content = document.querySelector('div.RichText.ztext.Post-RichText')?.innerHTML || '';
   const digest = document.querySelector('meta[property="og:description"]')?.getAttribute('content') || '';
@@ -27,4 +27,4 @@ export default async function scrapeZhihuContent(): Promise<ArticleData | undefi
   };
 
   return articleData;
-} 
+}

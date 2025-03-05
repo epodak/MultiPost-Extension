@@ -33,8 +33,32 @@ export async function ArticleZhihu(data: SyncData) {
 
   const articleData = data.data as ArticleData;
 
+  // 新增数据详情日志
+  console.debug('ArticleData详情:', {
+    title: articleData.title,
+    contentLength: articleData.originContent?.length || 0,
+    contentPreview: articleData.originContent?.substring(0, 100) + '...',
+    hasCover: !!articleData.cover,
+    // 添加更多字段检查
+    content: articleData.content?.length || 0,
+    markdownContent: articleData.markdownContent?.length || 0,
+    // 移除不存在的htmlContent属性
+  });
+
   // 处理文章内容中的图片
   async function processContent(content: string): Promise<string> {
+    if (!content || content.trim() === '') {
+      console.debug('内容为空，尝试使用其他可用内容字段');
+      // 尝试使用其他可能的内容字段
+      content = articleData.content ||
+                articleData.markdownContent ||
+                // 移除不存在的htmlContent属性
+                '<p>内容为空</p>';
+    }
+
+    console.debug('处理前的内容长度:', content.length);
+    console.debug('内容预览:', content.substring(0, 100));
+
     const parser = new DOMParser();
     const doc = parser.parseFromString(content, 'text/html');
     // 知乎文章编辑器会自动处理图片上传，所以这里不需要预处理图片
@@ -66,7 +90,10 @@ export async function ArticleZhihu(data: SyncData) {
     }
 
     // 处理并填充内容
-    const processedContent = await processContent(articleData.originContent);
+    const processedContent = await processContent(articleData.originContent || articleData.content || articleData.markdownContent || '');
+    console.debug('处理后的内容长度:', processedContent.length);
+    console.debug('处理后内容预览:', processedContent.substring(0, 100));
+
     editor.focus();
 
     // 使用粘贴事件插入内容
